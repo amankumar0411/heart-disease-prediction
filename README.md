@@ -46,11 +46,7 @@ The web app is built with **Streamlit** for interactive predictions.
 
 ---
 
-## 📸 Demo (Optional)
-_Add screenshots or GIF of your Streamlit app here for better presentation._
-
----
-
 <p align="center">
   <b>Built with ❤️ by Aman Kumar</b>
 </p>
+
