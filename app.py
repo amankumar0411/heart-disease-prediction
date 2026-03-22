@@ -159,29 +159,43 @@ except Exception as e:
 # Model Comparison (metrics only)
 # --------------------------
 st.markdown('<div class="section-title">Model Comparison</div>', unsafe_allow_html=True)
+
 try:
     scores = joblib.load('models/model_scores.pkl')
-    comparison_df = pd.DataFrame(scores).T
-    metric_cols = ["accuracy"]
-    rename_map = {
-        "accuracy": "Accuracy"
-    }
-    show_df = comparison_df[metric_cols].rename(columns=rename_map)
-    st.dataframe(show_df, use_container_width=True)
 
-    for metric in show_df.columns:
-        fig = px.bar(
-            show_df,
-            y=metric,
-            title=f"{metric} Comparison",
-            color=show_df.index.map({
-                'Logistic Regression': '#f72585',
-                'SVM': '#3a0ca3',
-                'KNN': '#f9c74f',
-                'Random Forest': '#43aa8b'
-            })
-        )
-        st.plotly_chart(fig, use_container_width=True)
+    # Convert to DataFrame safely
+    comparison_df = pd.DataFrame(scores).T
+
+    # Check available columns
+    if "accuracy" not in comparison_df.columns:
+        st.error("Accuracy column not found in model_scores.pkl")
+    else:
+        show_df = comparison_df[["accuracy"]].rename(columns={"accuracy": "Accuracy"})
+
+        st.dataframe(show_df, use_container_width=True)
+
+        # Reset index to use model names
+        show_df = show_df.reset_index().rename(columns={"index": "Model"})
+
+        # Plot
+        for metric in ["Accuracy"]:
+            fig = px.bar(
+                show_df,
+                x="Model",
+                y=metric,
+                title=f"{metric} Comparison",
+                color="Model",  # ✅ FIXED
+                color_discrete_map={
+                    'Logistic Regression': '#f72585',
+                    'SVM': '#3a0ca3',
+                    'KNN': '#f9c74f',
+                    'Random Forest': '#43aa8b'
+                }
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+except FileNotFoundError:
+    st.warning("Model file not found. Run: python src/train_models.py")
 
 except Exception as e:
-    st.warning(f"Please run 'python src/train_models.py' first to train models. Details: {e}")
+    st.error(f"Error: {e}")
