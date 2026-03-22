@@ -32,7 +32,7 @@ The web app is built with **Streamlit** for interactive predictions.
 
 ## 👨‍💻 Role & Contribution
 **Role:** ML Developer & Streamlit App Developer  
-**Developer:** Aman Kumar  
+**Developer:** ---  
 
 - Trained and tested multiple ML models (KNN, Random Forest, LR, SVM)  
 - Integrated ML models with **Streamlit frontend**  
