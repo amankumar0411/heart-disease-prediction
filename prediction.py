@@ -38,7 +38,7 @@ class HeartDiseasePredictor:
     def predict_single(self, input_dict, model_name='SVM'):
         X_sc = self.prepare_input(input_dict)
         model = self.models[model_name]
-        pred = int(model.predict(X_sc))
+        pred = int(model.predict(X_sc)[0])
         prob = float(model.predict_proba(X_sc)[0,1])
         risk = "Low Risk" if prob < 0.3 else ("Moderate Risk" if prob < 0.7 else "High Risk")
         return {'prediction': pred, 'probability_disease': prob, 'risk_level': risk}
