@@ -4,3 +4,5 @@ numpy
 plotly
 scikit-learn
 joblib
+flask
+flask-cors
