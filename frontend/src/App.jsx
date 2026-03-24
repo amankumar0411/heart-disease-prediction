@@ -19,7 +19,7 @@ function AppContent() {
     setLoading(true);
     setError(null);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://heart-disease-prediction-q3xz.onrender.com';
       const response = await axios.post(`${apiUrl}/predict`, {
         input_data: inputData,
         model_choice: modelChoice
