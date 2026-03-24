@@ -1,20 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@700;900&display=swap');
+
+:root {
+  --vp-bg: #edfaf3;
+  --vp-primary: #1db975;
+  --vp-primary-dark: #179960;
+  --vp-text: #0d1a12;
+  --vp-muted: #5a7a65;
+  --vp-card-bg: #ffffff;
+  --vp-ring: #d4f0e2;
+  --vp-font-sans: 'DM Sans', sans-serif;
+  --vp-font-serif: 'Fraunces', serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0;
+  background-color: var(--vp-bg);
+  color: var(--vp-text);
+  font-family: var(--vp-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.card {
-  border-radius: 12px;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--vp-font-serif);
+  font-weight: 900;
 }
 
-.btn-primary {
-  background-color: #0d6efd;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 600;
-  border-radius: 8px;
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp 0.7s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .navbar {

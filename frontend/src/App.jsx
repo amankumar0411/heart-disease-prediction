@@ -1,16 +1,96 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
-import PillNav from './components/PillNav';
-import ColorBends from './components/ColorBends';
+import HeroScreen from './components/HeroScreen';
+import ResultScreen from './components/ResultScreen';
 import HeartForm from './components/HeartForm';
-import PredictionResult from './components/PredictionResult';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
-import logo from '/favicon.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+
+const C = {
+  bg: "#edfaf3",
+  primary: "#1db975",
+  text: "#0d1a12",
+  ring: "#d4f0e2",
+};
+
+const styles = {
+  container: {
+    minHeight: "100vh",
+    background: C.bg,
+    fontFamily: "'DM Sans', sans-serif",
+    display: "flex",
+    flexDirection: "column",
+  },
+  nav: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "18px 24px",
+    background: "transparent",
+  },
+  logo: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    cursor: "pointer",
+  },
+  logoText: {
+    fontWeight: 700,
+    fontSize: 18,
+    color: C.text,
+    letterSpacing: -0.5,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: "50%",
+    overflow: "hidden",
+    border: `2px solid ${C.ring}`,
+    background: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  main: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    padding: "0 20px 40px",
+  },
+  error: {
+    background: "#fee2e2",
+    color: "#991b1b",
+    padding: "12px 20px",
+    borderRadius: "12px",
+    marginBottom: "20px",
+    textAlign: "center",
+    fontSize: "0.9rem",
+    maxWidth: "600px",
+    margin: "0 auto 20px",
+  }
+};
+
+function Nav({ onLogoClick }) {
+  return (
+    <nav style={styles.nav}>
+      <div style={styles.logo} onClick={onLogoClick}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C.primary} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <span style={styles.logoText}>Vital Pulse</span>
+      </div>
+      <div style={styles.avatar}>
+        <img 
+          src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" 
+          alt="User Avatar" 
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+    </nav>
+  );
+}
 
 function AppContent() {
+  const [screen, setScreen] = useState("hero"); // hero, input, result
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
@@ -25,115 +105,36 @@ function AppContent() {
         model_choice: modelChoice
       });
       setResult(response.data);
+      setScreen("result");
     } catch (err) {
       console.error(err);
-      setError("Connection Failure: Ensure the backend API is running on port 5000.");
+      setError("Analysis Failed: Unable to connect to the clinical engine. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Analysis', href: '#analysis' },
-    { label: 'Healthcare', href: '#healthcare' },
-    { label: 'About', href: '#about' }
-  ];
-
   return (
-    <div className="pb-5 min-vh-100 position-relative">
-      <ColorBends
-        colors={["#00f2fe", "#4facfe", "#00d2ff"]}
-        rotation={0}
-        speed={0.2}
-        scale={1}
-        frequency={1}
-        warpStrength={1}
-        mouseInfluence={1}
-        parallax={0.5}
-        noise={0.05}
-        transparent
-      />
-
-      <PillNav
-        logo={logo}
-        logoAlt="Heart Disease Prediction Logo"
-        items={navItems}
-        activeHref="/"
-        baseColor="#ffffff"
-        pillColor="#0d6efd"
-        hoveredPillTextColor="#ffffff"
-        pillTextColor="#ffffff"
-        theme="light"
-        initialLoadAnimation={true}
-      />
+    <div style={styles.container}>
+      <Nav onLogoClick={() => setScreen("hero")} />
       
-      <Container className="py-5 mt-4">
-        <Row className="justify-content-center mb-5 mt-5">
-          <Col md={10} className="text-center">
-            <h1 className="display-3 fw-bold text-dark mb-4 shadow-sm p-3 bg-white bg-opacity-75 rounded-4 d-inline-block">
-              Heart Disease Prediction
-            </h1>
-            <div className="bg-white bg-opacity-50 p-4 rounded-4 shadow-sm backdrop-blur">
-              <p className="lead text-dark fw-bold mb-0">
-                Advanced machine learning diagnostics for cardiovascular health. 
-                Enter clinical parameters below for an instant risk assessment.
-              </p>
-            </div>
-          </Col>
-        </Row>
+      <main style={styles.main}>
+        {error && <div style={styles.error}>{error}</div>}
 
-        {error && (
-          <Row className="justify-content-center mb-4">
-            <Col md={8}>
-              <Alert variant="danger" onClose={() => setError(null)} dismissible className="shadow-sm">
-                {error}
-              </Alert>
-            </Col>
-          </Row>
+        {screen === "hero" && (
+          <HeroScreen onCTA={() => setScreen("input")} />
         )}
 
-        <Row className="justify-content-center">
-          <Col lg={11} xl={10}>
-            {!result ? (
-              <div className="bg-white bg-opacity-75 p-2 rounded-4 shadow-lg">
-                 <HeartForm onSubmit={handlePredict} loading={loading} />
-              </div>
-            ) : (
-              <div className="bg-white bg-opacity-90 p-4 rounded-4 shadow-lg border-primary border-top border-5">
-                <PredictionResult result={result} onReset={() => setResult(null)} />
-              </div>
-            )}
-          </Col>
-        </Row>
+        {screen === "input" && (
+          <div style={{ marginTop: 40 }}>
+            <HeartForm onSubmit={handlePredict} loading={loading} />
+          </div>
+        )}
 
-        <Row className="mt-5 g-4">
-          <Col md={4}>
-            <div className="card h-100 border-0 shadow-sm p-4 bg-white bg-opacity-75">
-               <h5 className="fw-bold mb-3 text-primary">High Accuracy</h5>
-               <p className="text-dark small mb-0">Utilizing SVM and Random Forest models cross-validated with clinical datasets.</p>
-            </div>
-          </Col>
-          <Col md={4}>
-             <div className="card h-100 border-0 shadow-sm p-4 bg-white bg-opacity-75">
-               <h5 className="fw-bold mb-3 text-primary">Patient Privacy</h5>
-               <p className="text-dark small mb-0">Diagnostics are processed in real-time. We never store sensitive biometric health data.</p>
-            </div>
-          </Col>
-          <Col md={4}>
-             <div className="card h-100 border-0 shadow-sm p-4 bg-white bg-opacity-75">
-               <h5 className="fw-bold mb-3 text-primary">Clinical Basis</h5>
-               <p className="text-dark small mb-0">Parameters derived from established medical indicators: Cholesterol, BP, and ECG mapping.</p>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-
-      <footer className="py-5 text-center text-dark border-top mt-5 bg-white bg-opacity-50">
-        <Container>
-          <p className="mb-0 fw-bold">&copy; 2026 Heart Disease Prediction AI. Leading the way in preventive cardiology.</p>
-        </Container>
-      </footer>
+        {screen === "result" && (
+          <ResultScreen result={result} onBack={() => { setScreen("input"); setResult(null); }} />
+        )}
+      </main>
     </div>
   );
 }
