@@ -46,5 +46,7 @@ def health():
     return jsonify({'status': 'healthy'})
 
 if __name__ == '__main__':
-    # Ensure we are in the correct directory to load models
-    app.run(debug=True, port=5000)
+    # Get port from environment variable for Render compatibility
+    port = int(os.environ.get('PORT', 5000))
+    # Listen on 0.0.0.0 to be accessible from outside the container
+    app.run(host='0.0.0.0', port=port, debug=True)
