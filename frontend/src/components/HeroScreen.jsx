@@ -85,9 +85,7 @@ const styles = {
 export default function HeroScreen({ onCTA }) {
   return (
     <div style={styles.heroBody}>
-      <div style={styles.blob} aria-hidden />
-
-      <div style={styles.heroContent} className="fade-up">
+      <div style={{ ...styles.heroContent, background: "rgba(255, 255, 255, 0.4)", padding: "48px", borderRadius: "32px", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.3)" }} className="fade-up">
         <div style={styles.badge}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />

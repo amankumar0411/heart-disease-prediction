@@ -4,9 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import HeroScreen from './components/HeroScreen';
 import ResultScreen from './components/ResultScreen';
 import HeartForm from './components/HeartForm';
+import HeartBackground from './components/HeartBackground';
 
 const C = {
-  bg: "#edfaf3",
+  bg: "transparent", // Background is handled by HeartBackground
   primary: "#1db975",
   text: "#0d1a12",
   ring: "#d4f0e2",
@@ -15,17 +16,20 @@ const C = {
 const styles = {
   container: {
     minHeight: "100vh",
-    background: C.bg,
     fontFamily: "'DM Sans', sans-serif",
     display: "flex",
     flexDirection: "column",
+    position: "relative",
+    zIndex: 1,
   },
   nav: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     padding: "18px 24px",
-    background: "transparent",
+    background: "rgba(255, 255, 255, 0.4)",
+    backdropFilter: "blur(12px)",
+    borderBottom: "1px solid rgba(29, 185, 117, 0.1)",
   },
   logo: {
     display: "flex",
@@ -116,6 +120,7 @@ function AppContent() {
 
   return (
     <div style={styles.container}>
+      <HeartBackground />
       <Nav onLogoClick={() => setScreen("hero")} />
       
       <main style={styles.main}>
