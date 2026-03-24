@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-# Copy requirements from the backend folder
-COPY backend/requirements.txt .
+# Copy requirements from the same folder
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all backend code into the container
-COPY backend/ .
+COPY . .
 
 # Expose port
 EXPOSE 5000
