@@ -1,8 +1,8 @@
-streamlit
-pandas
-numpy
-plotly
-scikit-learn
-joblib
-flask
-flask-cors
+streamlit==1.55.0
+pandas==2.3.3
+numpy==2.4.3
+plotly==6.6.0
+scikit-learn==1.8.0
+joblib==1.5.3
+flask==3.1.3
+flask-cors==6.0.2
