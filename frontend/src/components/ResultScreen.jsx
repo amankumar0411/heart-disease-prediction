@@ -70,16 +70,23 @@ const styles = {
 };
 
 export default function ResultScreen({ result, onBack }) {
-  // Assuming result has a 'risk_score' or 'probability' field from backend
-  const riskPercent = result?.probability ? Math.round(result.probability * 100) : 0;
+  // Map 'probability_disease' from the backend (0.0 to 1.0) to a percentage (0 to 100)
+  const riskPercent = result?.probability_disease ? Math.round(result.probability_disease * 100) : 0;
   
   return (
     <div style={styles.resultBody}>
       <div style={styles.resultCard} className="fade-up">
-        <h2 style={styles.resultTitle}>Cardiovascular Risk Score</h2>
-        <ArcGauge percent={riskPercent || 22} />
+        <h2 style={styles.resultTitle}>Cardiovascular Risk Status</h2>
+        <ArcGauge percent={riskPercent} />
         <p style={styles.resultDesc}>
-          {result?.message || "Your risk factors are currently within the optimal range for your demographic. Continue present lifestyle habits."}
+          {result?.risk_level === 'Low Risk' 
+            ? "Your risk factors are currently within the optimal range for your demographic. Continue your healthy lifestyle."
+            : result?.risk_level === 'Moderate Risk'
+            ? "Your assessment shows moderate risk indicators. We recommend consulting with a healthcare professional for a detailed evaluation."
+            : result?.risk_level === 'High Risk'
+            ? "Warning: High cardiovascular risk indicators detected. Please seek medical advice immediately to discuss preventive strategies."
+            : "Diagnostic analysis complete. Please review the risk percentage above."
+          }
         </p>
         <button 
           style={styles.dlBtn}
