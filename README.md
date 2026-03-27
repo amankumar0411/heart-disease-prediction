@@ -47,6 +47,6 @@ The web app is built with **Streamlit** for interactive predictions.
 ---
 
 <p align="center">
-  <b>Built with ❤️ by Aman Kumar</b>
+  <b>Built with ❤️ by ----</b>
 </p>
 
