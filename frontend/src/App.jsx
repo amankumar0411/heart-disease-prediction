@@ -43,17 +43,6 @@ const styles = {
     color: C.text,
     letterSpacing: -0.5,
   },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    overflow: "hidden",
-    border: `2px solid ${C.ring}`,
-    background: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   main: {
     flex: 1,
     display: "flex",
@@ -81,13 +70,6 @@ function Nav({ onLogoClick }) {
             <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
         </svg>
         <span style={styles.logoText}>Vital Pulse</span>
-      </div>
-      <div style={styles.avatar}>
-        <img 
-          src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" 
-          alt="User Avatar" 
-          style={{ width: "100%", height: "100%" }}
-        />
       </div>
     </nav>
   );
