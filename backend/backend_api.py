@@ -15,6 +15,7 @@ def index():
         'message': 'Heart Disease Prediction API',
         'endpoints': {
             '/predict': 'POST - Single patient prediction',
+            '/models': 'GET - Model metadata and accuracies',
             '/health': 'GET - Health check status'
         }
     })
@@ -40,6 +41,16 @@ def predict():
         print(f"Error during prediction: {str(e)}")
         traceback.print_exc()
         return jsonify({'error': str(e), 'traceback': traceback.format_exc()}), 500
+
+@app.route('/models', methods=['GET'])
+def get_models():
+    models_metadata = [
+        {'id': 'Logistic Regression', 'name': 'Logistic Regression', 'accuracy': 0.8689},
+        {'id': 'SVM', 'name': 'SVM (Support Vector Machine)', 'accuracy': 0.8852},
+        {'id': 'KNN', 'name': 'KNN (K-Nearest Neighbors)', 'accuracy': 0.9016},
+        {'id': 'Random Forest', 'name': 'Random Forest', 'accuracy': 0.9016}
+    ]
+    return jsonify(models_metadata)
 
 @app.route('/health', methods=['GET'])
 def health():

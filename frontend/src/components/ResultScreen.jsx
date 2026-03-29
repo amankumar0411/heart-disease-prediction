@@ -1,5 +1,6 @@
 import React from 'react';
 import ArcGauge from './ArcGauge';
+import ModelAccuracyGraph from './ModelAccuracyGraph';
 
 const C = {
   primary: "#1db975",
@@ -21,7 +22,7 @@ const styles = {
     background: C.cardBg,
     borderRadius: 28,
     padding: "36px 28px",
-    maxWidth: 400,
+    maxWidth: 480, // Increased maxWidth to accommodate the graph
     width: "100%",
     boxShadow: "0 4px 40px rgba(0,0,0,0.07)",
     textAlign: "center",
@@ -88,15 +89,20 @@ export default function ResultScreen({ result, onBack }) {
             : "Diagnostic analysis complete. Please review the risk percentage above."
           }
         </p>
-        <button 
-          style={styles.dlBtn}
-          onMouseEnter={e => (e.currentTarget.style.background = C.primaryDark)}
-          onMouseLeave={e => (e.currentTarget.style.background = C.primary)}
-          onClick={() => window.print()}
-        >
-          <span style={{ marginRight: 8 }}>⬇</span> Download Report
-        </button>
-        <button style={styles.backLink} onClick={onBack}>← Back to Home</button>
+        
+        <ModelAccuracyGraph />
+        
+        <div style={{ marginTop: 32 }}>
+            <button 
+              style={styles.dlBtn}
+              onMouseEnter={e => (e.currentTarget.style.background = C.primaryDark)}
+              onMouseLeave={e => (e.currentTarget.style.background = C.primary)}
+              onClick={() => window.print()}
+            >
+              <span style={{ marginRight: 8 }}>⬇</span> Download Report
+            </button>
+            <button style={styles.backLink} onClick={onBack}>← Back to Home</button>
+        </div>
       </div>
     </div>
   );
