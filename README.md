@@ -1,4 +1,4 @@
-<h1 align="center">❤️ Heart Disease Prediction App</h1>
+<h1 align="center">❤️ Heart Disease Prediction WebApp</h1>
 
 <p align="center">
   <b>A Machine Learning web app to predict heart disease using multiple ML models.</b>
@@ -9,13 +9,13 @@
 ## 🧠 Project Overview
 This project predicts the likelihood of **heart disease** based on patient medical data.  
 It uses multiple ML algorithms: **KNN, Random Forest, Logistic Regression, and SVM**.  
-The web app is built with **Streamlit** for interactive predictions.
+The web app is built with **React** for interactive predictions.
 
 ---
 
 ## 🎨 Tech Stack
 - <span style="color:#FF5733;">Python</span> – ML and backend logic  
-- <span style="color:#33C1FF;">Streamlit</span> – Web app frontend  
+- <span style="color:#33C1FF;">React</span> – Web app frontend  
 - <span style="color:#33FF57;">scikit-learn</span> – Machine Learning algorithms  
 - <span style="color:#FF33A8;">pandas & numpy</span> – Data handling  
 
@@ -31,13 +31,9 @@ The web app is built with **Streamlit** for interactive predictions.
 ---
 
 ## 👨‍💻 Role & Contribution
-**Role:** ML Developer & Streamlit App Developer  
-**Developer:** ---  
-
-- Trained and tested multiple ML models (KNN, Random Forest, LR, SVM)  
-- Integrated ML models with **Streamlit frontend**  
-- Designed an interactive web app to input patient data and show predictions  
-- Saved trained models for easy deployment  
+**Role:** frontend Developer  
+- Integrated ML models with **React frontend**  
+- Designed an interactive web app to input patient data and show predictions    
 
 ---
 
